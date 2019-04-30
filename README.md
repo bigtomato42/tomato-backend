@@ -11,3 +11,9 @@ pipenv shell
 
 2. run the project with
 ./manage.py runserver
+
+
+
+DEPLOYING
+install heroku cli
+sudo snap install heroku --classic
