@@ -7,14 +7,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = 'nvk3(06snl(z=6xw6--)4%3l=%4jpptiiy006&zf$%j73waqhi'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 
-WSGI_APPLICATION = 'conf.wsgi.application'
 
 
 # Static files (CSS, JavaScript, Images)
