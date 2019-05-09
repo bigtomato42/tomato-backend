@@ -18,10 +18,13 @@ from django.urls import path
 from rest_framework.authtoken import views
 
 from bigtomato.users.views import UserViewSet
+from bigtomato.groups.views import GroupViewSet
+
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
+router.register(r'groups', GroupViewSet, basename='groups')
 
 
 urlpatterns = [

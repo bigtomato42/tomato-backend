@@ -2,9 +2,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-PROJECT_APPS = [
-    'users'
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -13,6 +10,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+
+PROJECT_APPS = [
+    'users',
+    'groups'
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
