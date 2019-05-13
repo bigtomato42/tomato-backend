@@ -15,7 +15,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bigtomato.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
