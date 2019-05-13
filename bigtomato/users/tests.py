@@ -1,3 +1,9 @@
 from django.test import TestCase
 
-# Create your tests here.
+class RandomTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_stuff(self):
+        print("works !")
+        return True
