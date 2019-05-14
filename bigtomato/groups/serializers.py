@@ -14,6 +14,8 @@ class UserSerializer(serializers.Serializer):
 class GroupSerializer(serializers.ModelSerializer):
 
     users = UserSerializer(read_only=True, many=True)
+    owner = UserSerializer(read_only=True)
+    pending_invitations = UserSerializer(read_only=True, many=True)
 
     class Meta:
 
@@ -21,12 +23,12 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        user = self.context['request'].user
-
+        validated_data['owner'] = self.context['request'].user
         obj = super(GroupSerializer, self).create(validated_data)
-        obj.users.add(user)
+        obj.users.add(self.context['request'].user)
         obj.save()
         return obj
+
 
 
 class TaskSerializer(serializers.ModelSerializer):
