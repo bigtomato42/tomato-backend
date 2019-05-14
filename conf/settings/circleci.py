@@ -30,7 +30,7 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': os.environ['POSTGRES_DB']
+    'default': os.environ['DATABASE_URL']
 }
 
 
