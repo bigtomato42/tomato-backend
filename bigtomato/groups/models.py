@@ -4,7 +4,7 @@ from django.db import transaction
 
 class Group(models.Model):
     name = models.CharField(max_length=256)
-    description = models.CharField(max_length=256, null=True)
+    description = models.CharField(max_length=256, null=True, blank=True)
 
     users = models.ManyToManyField(User, related_name='group_set')
 
