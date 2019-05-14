@@ -1,7 +1,10 @@
-from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
+# django imports
 from django.contrib.auth.models import User
 from django.core import validators
+from django.contrib.auth.password_validation import validate_password as val_pass
+# DRF imports
+from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,6 +26,5 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
     def validate_password(self, value):
-        if len(value) < 6:
-            raise serializers.ValidationError('Password needs to be atleast 6 characters')
+        val_pass(value)  # use django validate password method using password validators in settings
         return value

@@ -17,8 +17,7 @@ from rest_framework import permissions
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
-    Object-level permission to only allow owners of an object to edit it.
-    Assumes the model instance has an `owner` attribute.
+    Only allow owners of an object to edit it.
     """
 
     def has_object_permission(self, request, view, obj):
@@ -29,6 +28,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsInvitedToGroup(permissions.BasePermission):
+    """
+    Only allow access if user has a pending invitation to a group
+    """
+
     def has_object_permission(self, request, view, obj):
         return request.user in obj.pending_invitations.all()
 
