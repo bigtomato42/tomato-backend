@@ -1,8 +1,5 @@
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
@@ -10,7 +7,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
 
 PROJECT_APPS = [
     'users',
@@ -30,7 +26,6 @@ INSTALLED_APPS = [
 
 ] + ['bigtomato.' + item for item in PROJECT_APPS]
 
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -79,9 +74,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -91,7 +83,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/

@@ -1,7 +1,11 @@
 # tomato-backend
 Backend of tomato project
 
-Instalation instructions
+How to run
+
+1. Run the postgres docker image using docker compose
+docker-compose up
+
 1. activate a pipenv enviroment using:
 pipenv shell
 (use pip install --user pipenv to install pipenv)
@@ -11,9 +15,3 @@ pipenv shell
 
 2. run the project with
 ./manage.py runserver
-
-
-
-DEPLOYING
-install heroku cli
-sudo snap install heroku --classic

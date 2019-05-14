@@ -1,7 +1,6 @@
 import os
-import django_heroku
 from .base import *
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -15,9 +14,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'staticfiles')
 STATIC_URL = '/static/'
 
@@ -26,18 +22,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, '..', 'static'),
 )
 
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-DATABASES = {
-    'default': os.environ['DATABASE_URL']
-}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'circle_test',
         'USER': 'root',
-        #'PASSWORD': 'mypassword',
         'HOST': 'localhost',
         'PORT': '5432',
     }
