@@ -32,7 +32,16 @@ STATICFILES_DIRS = (
 DATABASES = {
     'default': os.environ['DATABASE_URL']
 }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        #'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 
 STATIC_URL = '/static/'
