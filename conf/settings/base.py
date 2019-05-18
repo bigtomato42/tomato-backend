@@ -10,7 +10,8 @@ REST_FRAMEWORK = {
 
 PROJECT_APPS = [
     'users',
-    'groups'
+    'groups',
+    'tasks'
 ]
 
 INSTALLED_APPS = [

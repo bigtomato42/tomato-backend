@@ -19,12 +19,13 @@ from rest_framework.authtoken import views
 from rest_framework.documentation import include_docs_urls
 from bigtomato.users.views import UserViewSet
 from bigtomato.groups.views import GroupViewSet
-
+from bigtomato.tasks.views import TaskViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'groups', GroupViewSet, basename='groups')
+router.register(r'tasks', TaskViewSet, basename='tasks')
 
 
 urlpatterns = [

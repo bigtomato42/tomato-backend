@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Group, Task
+from .models import Group
+from django.urls import reverse
+from rest_framework.utils.urls import replace_query_param
 
 
 class UserSerializer(serializers.Serializer):
@@ -16,6 +18,7 @@ class GroupSerializer(serializers.ModelSerializer):
     users = UserSerializer(read_only=True, many=True)
     owner = UserSerializer(read_only=True)
     pending_invitations = UserSerializer(read_only=True, many=True)
+    tasks = serializers.SerializerMethodField()
 
     class Meta:
 
@@ -23,27 +26,10 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        validated_data['owner'] = self.context['request'].user
-        obj = super(GroupSerializer, self).create(validated_data)
-        obj.users.add(self.context['request'].user)
-        obj.save()
-        return obj
+        owner = self.context['request'].user
+        return Group.objects.create_group(owner, validated_data)
 
-
-
-class TaskSerializer(serializers.ModelSerializer):
-
-    group = GroupSerializer(read_only=True, many=False)
-    description = serializers.CharField(required=False)
-    finished = serializers.BooleanField(required=False)
-
-    class Meta:
-        model = Task
-        fields = '__all__'
-
-    def create(self, validated_data):
-
-        validated_data['group'] = self.context['group']
-        obj = super(TaskSerializer, self).create(validated_data)
-
-        return obj
+    def get_tasks(self, obj):
+        request = self.context['request']
+        url = request.build_absolute_uri(reverse('tasks-list'))
+        return replace_query_param(url=url, key='group', val=obj.pk)

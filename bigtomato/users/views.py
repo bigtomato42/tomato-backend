@@ -25,7 +25,7 @@ class UserViewSet(ListModelMixin,
     def get_permissions(self):
         """Authenticate, unless you are creating a user"""
         return [AllowAny()] if self.action == 'create' else [IsAuthenticated()]
-
+        
     def list(self, request):
         """Returns an object of an authenticated user"""
         return Response(self.get_serializer(request.user).data)
