@@ -33,6 +33,7 @@ RUN pipenv install --dev
 
 COPY conf conf/
 COPY bigtomato bigtomato/
+COPY manage.py manage.py
 
 EXPOSE 8000
 
