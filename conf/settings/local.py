@@ -1,10 +1,15 @@
 import os
 import django_heroku
 from .base import *
+import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+# SETTINGS_DIR = /conf/settings
+SETTINGS_DIR = environ.Path(__file__) - 1
 
+environ.Env.read_env(SETTINGS_DIR('.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -30,14 +35,15 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'development_db',
-        'USER': 'development',
-        'PASSWORD': 'development',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'development_db',
+    #     'USER': 'development',
+    #     'PASSWORD': 'development',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # }
+    'default': env.db()
 }
 
 

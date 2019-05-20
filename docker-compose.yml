@@ -1,5 +1,24 @@
 version: "3.4"
 
+
+x-django-app:
+  &default-django-app
+  build:
+    context: .
+  environment:
+    DATABASE_URL: postgres://development:development@db:5432/development_db
+    DJANGO_SETTINGS_MODULE: conf.settings.local
+    PYTHONDONTWRITEBYTECODE: 1
+    MEDIA_ROOT: /app/media
+    STATIC_ROOT: /app/static
+    DEBUG: 1
+  depends_on:
+    - db
+  volumes:
+    - ./:/app/code/
+    - media:/app/media
+    - static:/app/static
+
 services:
 
   db:
@@ -10,3 +29,13 @@ services:
       POSTGRES_DB: development_db
     ports:
       - "5432:5432"
+      
+  django:
+    << : *default-django-app
+    ports:
+      - "8000:8000"
+
+
+volumes:
+  media:
+  static:
