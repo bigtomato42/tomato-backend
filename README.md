@@ -15,3 +15,6 @@ pipenv shell
 
 2. run the project with
 ./manage.py runserver
+
+
+# BOOM
