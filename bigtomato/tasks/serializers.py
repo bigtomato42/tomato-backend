@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from bigtomato.groups.models import Group
+
 from .models import Task
+from bigtomato.groups.models import Group
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -11,4 +12,4 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = "__all__"

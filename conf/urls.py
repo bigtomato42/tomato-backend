@@ -17,19 +17,20 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.authtoken import views
 from rest_framework.documentation import include_docs_urls
-from bigtomato.users.views import UserViewSet
-from bigtomato.groups.views import GroupViewSet
-from bigtomato.tasks.views import TaskViewSet
 from rest_framework.routers import DefaultRouter
 
+from bigtomato.groups.views import GroupViewSet
+from bigtomato.tasks.views import TaskViewSet
+from bigtomato.users.views import UserViewSet
+
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
-router.register(r'groups', GroupViewSet, basename='groups')
-router.register(r'tasks', TaskViewSet, basename='tasks')
+router.register(r"users", UserViewSet, basename="user")
+router.register(r"groups", GroupViewSet, basename="groups")
+router.register(r"tasks", TaskViewSet, basename="tasks")
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('log_in/', views.obtain_auth_token),
-    path('docs/', include_docs_urls(title='bigtomato api')),
+    path("admin/", admin.site.urls),
+    path("log_in/", views.obtain_auth_token),
+    path("docs/", include_docs_urls(title="bigtomato api")),
 ] + router.urls

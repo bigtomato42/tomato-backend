@@ -1,18 +1,18 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from django.contrib.auth.models import User
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-from conf.settings import local
-from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from django.shortcuts import render
+from rest_framework import permissions
 from rest_framework import status
-
+from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
 from rest_framework.decorators import permission_classes as permission_classes_decorator
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from .models import Group
 from .serializers import GroupSerializer
-from rest_framework import permissions
+from conf.settings import local
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -32,7 +32,6 @@ class IsGroupUser(permissions.BasePermission):
 
 
 class IsInvitedToGroup(permissions.BasePermission):
-
     def has_object_permission(self, request, view, obj):
         print(request.user, obj.pending_invitations.all())
         return request.user in obj.pending_invitations.all()
@@ -55,6 +54,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     delete:
     Delete the group.
     """
+
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
@@ -68,21 +68,21 @@ class GroupViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], permission_classes=((IsAuthenticated, IsOwnerOrReadOnly)))
+    @action(detail=True, methods=["post"], permission_classes=((IsAuthenticated, IsOwnerOrReadOnly)))
     def invite_users(self, request, *args, **kwargs):
         """Intite users to a group. Can only be done by the owner
         request body parameters : users: string
         users seperated by comma"""
         obj = self.get_object()
         self.check_object_permissions(self.request, obj)
-        usernames = self.request.data['users'].split(',')
+        usernames = self.request.data["users"].split(",")
         users = User.objects.filter(username__in=usernames)
         obj.pending_invitations.add(*users)
         obj.save()
         serializer = self.get_serializer(obj)
         return Response(serializer.data)
 
-    @action(detail=False, methods=['get'], permission_classes=((IsAuthenticated, IsOwnerOrReadOnly)))
+    @action(detail=False, methods=["get"], permission_classes=((IsAuthenticated, IsOwnerOrReadOnly)))
     def pending_invitations(self, request, *args, **kwargs):
         """View pending invitations for groups"""
         user = self.request.user
@@ -90,7 +90,7 @@ class GroupViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(groups_with_invitations, many=True)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], permission_classes=((IsAuthenticated, IsInvitedToGroup)))
+    @action(detail=True, methods=["post"], permission_classes=((IsAuthenticated, IsInvitedToGroup)))
     def accept_invitation(self, request, pk):
         """Accept invitation to a group by user"""
         user = self.request.user
@@ -100,13 +100,13 @@ class GroupViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(obj)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], permission_classes=((IsAuthenticated, IsGroupUser)))
+    @action(detail=True, methods=["post"], permission_classes=((IsAuthenticated, IsGroupUser)))
     def leave(self, request, pk):
         user = self.request.user
         obj = Group.objects.get(pk=pk)
         self.check_object_permissions(self.request, obj)
         obj.users.remove(user)
-        return Response({"left group":True})
+        return Response({"left group": True})
 
     # @permission_classes_decorator((IsAuthenticated, IsOwner))
     # def update(self, request, *args, **kwargs):
@@ -114,7 +114,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     #     #obj = self.get_object()
     #     #self.check_object_permissions(request, obj)
     #     return super(GroupViewSet, self).update(request, *args, **kwargs)
-
 
     # def get_tasks(self, request, pk):
     #     group = Group.objects.get(pk=pk)

@@ -1,7 +1,8 @@
-django
-django-heroku
-gunicorn
-djangorestframework
 coreapi
+django
 django-cors-headers
 django-environ
+django-heroku
+djangorestframework
+gunicorn
+pre-commit
