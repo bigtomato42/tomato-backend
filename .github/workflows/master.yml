@@ -45,7 +45,7 @@ jobs:
 
     - name: Test with django tests 
       run: |
-        python manage.py test 
+        python manage.py test --settings=conf.settings.githubactions
       env:
         DB_HOST: localhost
         DB_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
