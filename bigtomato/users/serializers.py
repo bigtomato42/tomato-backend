@@ -4,6 +4,7 @@ from django.contrib.auth.password_validation import validate_password as val_pas
 from django.core import validators
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+
 # DRF imports
 
 
