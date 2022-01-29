@@ -1,0 +1,55 @@
+name: Master Branch Workflow
+
+on:
+  push:
+    branches: [ master ]
+
+#set environment variables
+env:
+  APP_NAME: tomato-backend 
+  IMAGE_NAME: tomato-backend
+
+jobs:
+
+  django-tests:
+    # Run pytest, upload coverage to a githubs gist so that badge can display it
+
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: postgres
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Test with django tests 
+      run: |
+        python manage.py test 
+      env:
+        DB_HOST: localhost
+        DB_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
+        DB_DATABASE: postgres
+        DB_USER: postgres
+        DB_PASSWORD: pass
+
