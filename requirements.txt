@@ -6,3 +6,4 @@ django-heroku
 djangorestframework
 gunicorn
 pre-commit
+psycopg2-binary==2.9.1

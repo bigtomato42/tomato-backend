@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 django-heroku = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 djangorestframework = "*"
 coreapi = "*"
 django-cors-headers = "*"
@@ -16,4 +17,4 @@ django-environ = "*"
 pre-commit="*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.7"
