@@ -1,10 +1,6 @@
 FROM python:3.6-alpine3.7
 
-ENV TZ=America/Argentina/Buenos_Aires \
-    BASE_DIR=/app/ \
-    PYTHON_VENV_DIR=/app/venv/ \
-    PYTHONUNBUFFERED=1 \
-    MEDIA_ROOT=/app/code/media/ \
+ENV BASE_DIR=/app/ \
     STATIC_ROOT=/app/code/static/ \
     APP_DIR=/app/code/ \
     APP_USER=webapp \
@@ -15,7 +11,6 @@ WORKDIR $APP_DIR
 
 RUN apk add --no-cache imagemagick zlib-dev jpeg-dev build-base postgresql-dev tzdata && \
     cp "/usr/share/zoneinfo/$TZ" /etc/localtime && \
-    echo "$TZ" > /etc/timezone && \
     apk add --no-cache git gcc libc-dev --virtual build && \
     mkdir $APP_DIR $MEDIA_ROOT $STATIC_ROOT -p && \
     addgroup -S $APP_USER && \

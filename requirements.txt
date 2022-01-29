@@ -1,0 +1,7 @@
+django
+django-heroku
+gunicorn
+djangorestframework
+coreapi
+django-cors-headers
+django-environ
