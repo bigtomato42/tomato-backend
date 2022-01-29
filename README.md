@@ -17,4 +17,7 @@ pipenv shell
 ./manage.py runserver
 
 
+Running tests
+./manage.py test
+
 # BOOM
