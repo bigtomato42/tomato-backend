@@ -20,4 +20,3 @@ pipenv shell
 Running tests
 ./manage.py test
 
-# BOOM
